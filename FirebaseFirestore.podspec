@@ -1,10 +1,6 @@
 firebase_firestore_version = '10.17.0'
 
-Pod::UI.puts "YOLO"
-Pod::UI.puts "YOLO"
-Pod::UI.puts "YOLO"
-Pod::UI.puts "YOLO"
-Pod::UI.puts "YOLO"
+Pod::UI.puts "test-fixing8"
 
 Pod::Spec.new do |s|
   s.name                   = 'FirebaseFirestore'
@@ -29,18 +25,6 @@ Pod::Spec.new do |s|
   s.ios.deployment_target  = '11.0'
   s.osx.deployment_target  = '10.13'
   s.tvos.deployment_target = '11.0'
-  s.pod_target_xcconfig = {
-    'CLANG_CXX_LANGUAGE_STANDARD' => 'c++14',
-    'CLANG_CXX_LIBRARY' => 'libc++',
-    'GCC_C_LANGUAGE_STANDARD' => 'c99',
-    'GCC_PREPROCESSOR_DEFINITIONS' =>
-      "FIRFirestore_VERSION=#{s.version} " +
-      # The nanopb pod sets these defs, so we must too. (We *do* require 16bit
-      # (or larger) fields, so we'd have to set at least PB_FIELD_16BIT
-      # anyways.)
-      'PB_FIELD_32BIT=1 PB_NO_PACKED_STRUCTS=1 PB_ENABLE_MALLOC=1'
-  }
-
   s.compiler_flags = '$(inherited) -Wreorder -Werror=reorder -Wno-comma'
 
   s.swift_version = '5.3'
@@ -48,7 +32,7 @@ Pod::Spec.new do |s|
   s.requires_arc            = true
   s.prefix_header_file = false
 
-  s.default_subspecs       = ["AutodetectLeveldb", "FirebaseSharedSwiftWrapper"]
+  s.default_subspecs       = ["AutoDetectLeveldb", "FirebaseSharedSwiftWrapper", "FirebaseFirestoreInternalWrapper"]
 
   # Skip leveldb framework if Firebase Database is included in any form
   # Skip FirebaseFirestoreSwift if project is FlutterFire or React Native Firebase project. See:
@@ -59,9 +43,20 @@ Pod::Spec.new do |s|
   hasCloudFirestore = current_definition_string.include?('cloud_firestore')
   hasRNFBFirestore = current_definition_string.include?('RNFBFirestore')
 
-  # Base Pod gets everything except leveldb, which if included here may collide with inclusions elsewhere
   s.subspec 'FirebaseSharedSwiftWrapper' do |wrapper|
     wrapper.dependency 'FirebaseSharedSwift', firebase_firestore_version
+  end
+  s.subspec 'FirebaseFirestoreInternalWrapper' do |wrapper|
+    frameworksBase = Dir.glob("FirebaseFirestore/*.xcframework").select do |name|
+      if name.include?('FirebaseFirestoreInternal')
+        true
+      else
+        false
+      end
+    end
+    base.vendored_frameworks  = frameworksBase
+    base.preserve_paths       = frameworksBase
+    wrapper.dependency 'FirebaseSharedSwiftWrapper'
   end
 
   # Base Pod gets everything except leveldb, which if included here may collide with inclusions elsewhere
@@ -72,6 +67,8 @@ Pod::Spec.new do |s|
       elsif hasCloudFirestore && name.include?('FirebaseFirestoreSwift')
         false
       elsif name.include?('FirebaseSharedSwift')
+        false
+      elsif name.include?('FirebaseFirestoreInternal')
         false
       elsif hasRNFBFirestore && name.include?('FirebaseFirestoreSwift')
         false
@@ -87,9 +84,8 @@ Pod::Spec.new do |s|
   end
 
   # AutoLeveldb Pod attempts to determine if it should include leveldb automatically. Flaky in some instances.
-  s.subspec 'AutodetectLeveldb' do |autodb|
+  s.subspec 'AutoDetectLeveldb' do |autodb|
     autodb.dependency 'FirebaseFirestore/Base'
-
 
     skip_leveldb = false
 
