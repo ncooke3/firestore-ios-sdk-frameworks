@@ -54,8 +54,8 @@ Pod::Spec.new do |s|
         false
       end
     end
-    base.vendored_frameworks  = frameworksBase
-    base.preserve_paths       = frameworksBase
+    wrapper.vendored_frameworks  = frameworksBase
+    wrapper.preserve_paths       = frameworksBase
     wrapper.dependency 'FirebaseSharedSwiftWrapper'
   end
 
