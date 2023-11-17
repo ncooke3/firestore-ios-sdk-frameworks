@@ -24,6 +24,14 @@ Pod::Spec.new do |s|
   s.osx.deployment_target  = '10.13'
   s.tvos.deployment_target = '11.0'
 
+
+  
+  s.weak_framework = 'FirebaseFirestoreInternal'
+  s.swift_version = '5.3'
+  s.cocoapods_version = '>= 1.4.0'
+  s.requires_arc            = true
+
+
   s.default_subspecs       = "AutodetectLeveldb"
 
   # Skip leveldb framework if Firebase Database is included in any form
