@@ -1,7 +1,5 @@
 firebase_firestore_version = '10.17.0'
 
-Pod::UI.puts "test-fixing8"
-
 Pod::Spec.new do |s|
   s.name                   = 'FirebaseFirestore'
   s.version                = firebase_firestore_version
@@ -42,20 +40,8 @@ Pod::Spec.new do |s|
 
   hasCloudFirestore = current_definition_string.include?('cloud_firestore')
   hasRNFBFirestore = current_definition_string.include?('RNFBFirestore')
-
-  # s.subspec 'FirebaseSharedSwiftWrapper' do |wrapper|
-  #   wrapper.dependency 'FirebaseSharedSwift', firebase_firestore_version
-  # end
   s.dependency 'FirebaseSharedSwift', firebase_firestore_version
-  internalFrameworks = Dir.glob("FirebaseFirestore/*.xcframework").select do |name|
-    if name.include?('FirebaseFirestoreInternal')
-      true
-    else
-      false
-    end
-  end
-  s.vendored_frameworks  = internalFrameworks
-  s.preserve_paths       = internalFrameworks
+  s.dependency 'FirebaseFirestoreInternal', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => firebase_firestore_version
 
   # Base Pod gets everything except leveldb, which if included here may collide with inclusions elsewhere
   s.subspec 'Base' do |base|
