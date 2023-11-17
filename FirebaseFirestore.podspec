@@ -43,14 +43,12 @@ Pod::Spec.new do |s|
 
   s.compiler_flags = '$(inherited) -Wreorder -Werror=reorder -Wno-comma'
 
-  
-  s.weak_framework = 'FirebaseFirestoreInternal'
   s.swift_version = '5.3'
   s.cocoapods_version = '>= 1.4.0'
   s.requires_arc            = true
   s.prefix_header_file = false
 
-  s.default_subspecs       = "AutodetectLeveldb"
+  s.default_subspecs       = ["AutodetectLeveldb", "FirebaseSharedSwiftWrapper"]
 
   # Skip leveldb framework if Firebase Database is included in any form
   # Skip FirebaseFirestoreSwift if project is FlutterFire or React Native Firebase project. See:
@@ -60,6 +58,11 @@ Pod::Spec.new do |s|
 
   hasCloudFirestore = current_definition_string.include?('cloud_firestore')
   hasRNFBFirestore = current_definition_string.include?('RNFBFirestore')
+
+  # Base Pod gets everything except leveldb, which if included here may collide with inclusions elsewhere
+  s.subspec 'FirebaseSharedSwiftWrapper' do |wrapper|
+    wrapper.dependency 'FirebaseSharedSwift', firebase_firestore_version
+  end
 
   # Base Pod gets everything except leveldb, which if included here may collide with inclusions elsewhere
   s.subspec 'Base' do |base|
@@ -78,7 +81,6 @@ Pod::Spec.new do |s|
         true
       end
     end
-    base.dependency 'FirebaseSharedSwift', firebase_firestore_version
     base.vendored_frameworks  = frameworksBase
     base.preserve_paths       = frameworksBase
     base.resource             = 'FirebaseFirestore/Resources/*.bundle'
