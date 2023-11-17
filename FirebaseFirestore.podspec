@@ -1,5 +1,11 @@
 firebase_firestore_version = '10.17.0'
 
+Pod::UI.puts "YOLO"
+Pod::UI.puts "YOLO"
+Pod::UI.puts "YOLO"
+Pod::UI.puts "YOLO"
+Pod::UI.puts "YOLO"
+
 Pod::Spec.new do |s|
   s.name                   = 'FirebaseFirestore'
   s.version                = firebase_firestore_version
