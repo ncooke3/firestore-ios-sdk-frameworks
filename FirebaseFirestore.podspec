@@ -78,7 +78,7 @@ Pod::Spec.new do |s|
         true
       end
     end
-    base.dependency 'FirebaseSharedSwift', '~> #{firebase_firestore_version}'
+    base.dependency 'FirebaseSharedSwift', firebase_firestore_version
     base.vendored_frameworks  = frameworksBase
     base.preserve_paths       = frameworksBase
     base.resource             = 'FirebaseFirestore/Resources/*.bundle'
