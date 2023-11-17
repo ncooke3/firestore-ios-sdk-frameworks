@@ -30,7 +30,7 @@ Pod::Spec.new do |s|
   s.swift_version = '5.3'
   s.cocoapods_version = '>= 1.4.0'
   s.requires_arc            = true
-
+  s.public_header_files = 'FirebaseFirestoreInternal.xcframework/ios-arm64/FirebaseFirestoreInternal.framework/Headers/*.h'
 
   s.default_subspecs       = "AutodetectLeveldb"
 
