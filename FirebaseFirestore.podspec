@@ -41,7 +41,6 @@ Pod::Spec.new do |s|
   hasCloudFirestore = current_definition_string.include?('cloud_firestore')
   hasRNFBFirestore = current_definition_string.include?('RNFBFirestore')
   s.dependency 'FirebaseSharedSwift', firebase_firestore_version
-  s.dependency 'FirebaseFirestoreInternal', :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git', :tag => firebase_firestore_version
 
   # Base Pod gets everything except leveldb, which if included here may collide with inclusions elsewhere
   s.subspec 'Base' do |base|
