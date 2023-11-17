@@ -43,10 +43,10 @@ Pod::Spec.new do |s|
   hasCloudFirestore = current_definition_string.include?('cloud_firestore')
   hasRNFBFirestore = current_definition_string.include?('RNFBFirestore')
 
-  s.subspec 'FirebaseSharedSwiftWrapper' do |wrapper|
-    wrapper.dependency 'FirebaseSharedSwift', firebase_firestore_version
-  end
-  s.dependency 'FirebaseFirestore/FirebaseSharedSwiftWrapper'
+  # s.subspec 'FirebaseSharedSwiftWrapper' do |wrapper|
+  #   wrapper.dependency 'FirebaseSharedSwift', firebase_firestore_version
+  # end
+  s.dependency 'FirebaseSharedSwift', firebase_firestore_version
 
   s.subspec 'FirebaseFirestoreInternalWrapper' do |wrapper|
     frameworksBase = Dir.glob("FirebaseFirestore/*.xcframework").select do |name|
