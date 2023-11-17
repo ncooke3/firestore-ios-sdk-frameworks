@@ -68,6 +68,8 @@ Pod::Spec.new do |s|
         false
       elsif hasCloudFirestore && name.include?('FirebaseFirestoreSwift')
         false
+      elsif name.include?('FirebaseSharedSwift')
+        false
       elsif hasRNFBFirestore && name.include?('FirebaseFirestoreSwift')
         false
       elsif ENV["SKIP_FIREBASE_FIRESTORE_SWIFT"] && name.include?('FirebaseFirestoreSwift')
@@ -76,7 +78,7 @@ Pod::Spec.new do |s|
         true
       end
     end
-
+    base.dependency 'FirebaseSharedSwift', '~> #{firebase_firestore_version}'
     base.vendored_frameworks  = frameworksBase
     base.preserve_paths       = frameworksBase
     base.resource             = 'FirebaseFirestore/Resources/*.bundle'
