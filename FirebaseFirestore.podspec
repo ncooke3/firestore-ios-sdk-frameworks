@@ -29,14 +29,26 @@ Pod::Spec.new do |s|
   s.ios.deployment_target  = '11.0'
   s.osx.deployment_target  = '10.13'
   s.tvos.deployment_target = '11.0'
+  s.pod_target_xcconfig = {
+    'CLANG_CXX_LANGUAGE_STANDARD' => 'c++14',
+    'CLANG_CXX_LIBRARY' => 'libc++',
+    'GCC_C_LANGUAGE_STANDARD' => 'c99',
+    'GCC_PREPROCESSOR_DEFINITIONS' =>
+      "FIRFirestore_VERSION=#{s.version} " +
+      # The nanopb pod sets these defs, so we must too. (We *do* require 16bit
+      # (or larger) fields, so we'd have to set at least PB_FIELD_16BIT
+      # anyways.)
+      'PB_FIELD_32BIT=1 PB_NO_PACKED_STRUCTS=1 PB_ENABLE_MALLOC=1'
+  }
 
+  s.compiler_flags = '$(inherited) -Wreorder -Werror=reorder -Wno-comma'
 
   
   s.weak_framework = 'FirebaseFirestoreInternal'
   s.swift_version = '5.3'
   s.cocoapods_version = '>= 1.4.0'
   s.requires_arc            = true
-  s.public_header_files = 'FirebaseFirestoreInternal.xcframework/ios-arm64/FirebaseFirestoreInternal.framework/Headers/*.h'
+  s.prefix_header_file = false
 
   s.default_subspecs       = "AutodetectLeveldb"
 
