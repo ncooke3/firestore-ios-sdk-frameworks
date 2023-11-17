@@ -59,7 +59,7 @@ Pod::Spec.new do |s|
     wrapper.vendored_frameworks  = frameworksBase
     wrapper.preserve_paths       = frameworksBase
   end
-  wrapper.dependency 'FirebaseFirestore/FirebaseFirestoreInternalWrapper'
+  s.dependency 'FirebaseFirestore/FirebaseFirestoreInternalWrapper'
 
   # Base Pod gets everything except leveldb, which if included here may collide with inclusions elsewhere
   s.subspec 'Base' do |base|
