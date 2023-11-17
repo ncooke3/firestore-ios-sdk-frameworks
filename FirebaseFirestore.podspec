@@ -47,19 +47,15 @@ Pod::Spec.new do |s|
   #   wrapper.dependency 'FirebaseSharedSwift', firebase_firestore_version
   # end
   s.dependency 'FirebaseSharedSwift', firebase_firestore_version
-
-  s.subspec 'FirebaseFirestoreInternalWrapper' do |wrapper|
-    frameworksBase = Dir.glob("FirebaseFirestore/*.xcframework").select do |name|
-      if name.include?('FirebaseFirestoreInternal')
-        true
-      else
-        false
-      end
+  internalFrameworks = Dir.glob("FirebaseFirestore/*.xcframework").select do |name|
+    if name.include?('FirebaseFirestoreInternal')
+      true
+    else
+      false
     end
-    wrapper.vendored_frameworks  = frameworksBase
-    wrapper.preserve_paths       = frameworksBase
   end
-  s.dependency 'FirebaseFirestore/FirebaseFirestoreInternalWrapper'
+  s.vendored_frameworks  = internalFrameworks
+  s.preserve_paths       = internalFrameworks
 
   # Base Pod gets everything except leveldb, which if included here may collide with inclusions elsewhere
   s.subspec 'Base' do |base|
