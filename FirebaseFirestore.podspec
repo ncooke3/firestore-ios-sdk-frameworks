@@ -32,7 +32,7 @@ Pod::Spec.new do |s|
   s.requires_arc            = true
   s.prefix_header_file = false
 
-  s.default_subspecs       = ["AutoDetectLeveldb", "FirebaseSharedSwiftWrapper", "FirebaseFirestoreInternalWrapper"]
+  s.default_subspecs       = "AutoDetectLeveldb"
 
   # Skip leveldb framework if Firebase Database is included in any form
   # Skip FirebaseFirestoreSwift if project is FlutterFire or React Native Firebase project. See:
