@@ -38,18 +38,10 @@ Pod::Spec.new do |s|
   # Base Pod gets everything except leveldb, which if included here may collide with inclusions elsewhere
   s.subspec 'Base' do |base|
     frameworksBase = Dir.glob("FirebaseFirestore/*.xcframework").select do |name|
-      if name.include?('leveldb')
-        false
-      elsif hasCloudFirestore && name.include?('FirebaseFirestoreSwift')
-        false
-      elsif name.include?('FirebaseSharedSwift')
-        false  
-      elsif hasRNFBFirestore && name.include?('FirebaseFirestoreSwift')
-        false
-      elsif ENV["SKIP_FIREBASE_FIRESTORE_SWIFT"] && name.include?('FirebaseFirestoreSwift')
-        false
-      else
+      if name.include?('FirebaseFirestoreInternal')
         true
+      else
+        false
       end
     end
     base.dependency 'FirebaseSharedSwift', '~> 10.18.0'
