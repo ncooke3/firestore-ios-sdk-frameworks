@@ -42,11 +42,14 @@ Pod::Spec.new do |s|
         false
       elsif name.include?('FirebaseSharedSwift')
         false  
+      elsif name.include?('FirebaseFirestoreInternal')
+        false    
       else
         true
       end
     end
-    # base.dependency 'FirebaseSharedSwift', '~> 10.18.0'
+    base.dependency 'FirebaseSharedSwift', '~> 10.18.0'
+    base.dependency 'FirebaseFirestoreInternal', '~> 10.18.0'
     base.vendored_frameworks  = frameworksBase
     base.preserve_paths       = frameworksBase
     base.resource             = 'FirebaseFirestore/Resources/*.bundle'
