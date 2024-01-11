@@ -48,7 +48,6 @@ Pod::Spec.new do |s|
     base.dependency 'FirebaseFirestoreInternal', '~> 10.17'
     base.dependency 'FirebaseSharedSwift', '~> 10.0'
     # Wrap around FirebaseFirestoreInternal following SPM strategy: https://github.com/firebase/firebase-ios-sdk/blob/main/Package.swift#L1513-L1519
-    
     # base.dependency 'FirebaseFirestore/FirebaseFirestoreInternalWrapper'
 
     base.vendored_frameworks = 'FirebaseFirestore/FirebaseFirestoreInternal.xcframework'
