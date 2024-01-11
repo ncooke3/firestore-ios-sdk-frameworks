@@ -45,7 +45,6 @@ Pod::Spec.new do |s|
     # Dependencies that are from source following SPM strategy: https://github.com/firebase/firebase-ios-sdk/blob/main/Package.swift#L1500C1-L1504C31
     base.dependency 'FirebaseCore', '~> 10.0'
     base.dependency 'FirebaseCoreExtension', '~> 10.0'
-    base.dependency 'FirebaseFirestoreInternal', '~> 10.17'
     base.dependency 'FirebaseSharedSwift', '~> 10.0'
     # Wrap around FirebaseFirestoreInternal following SPM strategy: https://github.com/firebase/firebase-ios-sdk/blob/main/Package.swift#L1513-L1519
     # base.dependency 'FirebaseFirestore/FirebaseFirestoreInternalWrapper'
