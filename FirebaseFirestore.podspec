@@ -29,6 +29,7 @@ Pod::Spec.new do |s|
   s.cocoapods_version = '>= 1.4.0'
   s.requires_arc            = true
   s.prefix_header_file = false
+  s.public_header_files = 'FirebaseFirestoreInternal/**/*.h'
 
 
   frameworksBase = Dir.glob("FirebaseFirestore/*.xcframework").select do |name|
