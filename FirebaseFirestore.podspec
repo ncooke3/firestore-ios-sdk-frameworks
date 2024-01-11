@@ -43,6 +43,7 @@ Pod::Spec.new do |s|
   s.preserve_paths       = frameworksBase
   s.resource             = 'FirebaseFirestore/Resources/*.bundle'
   s.dependency 'FirebaseCore', firebase_firestore_version
+  s.dependency 'FirebaseFirestore', firebase_firestore_version
   s.dependency 'FirebaseCoreExtension', firebase_firestore_version
   s.dependency 'FirebaseSharedSwift', firebase_firestore_version
 end
