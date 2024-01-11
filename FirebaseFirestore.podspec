@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.description            = 'A replica Firebase Firestore podspec that provides pre-compiled binaries/frameworks instead'
   s.homepage               = 'http://invertase.io'
   s.license                = 'Apache-2.0'
-  s.source                 = { :path => '.' }
+  s.source                 = { :git => 'https://github.com/firebase/firebase-ios-sdk.git' }
   s.cocoapods_version      = '>= 1.10.0'
   s.authors                = 'Invertase Limited'
   s.pod_target_xcconfig    = { 'OTHER_LDFLAGS' => '-lObjC' }
@@ -32,9 +32,6 @@ Pod::Spec.new do |s|
   current_target_definition = Pod::Config.instance.podfile.send(:current_target_definition)
   current_definition_string = current_target_definition.to_hash.to_s
 
-  hasPerf = current_definition_string.include?('firebase_performance')
-
-
   s.subspec 'FirebaseFirestoreInternalWrapper' do |ffiw|
     ffiw.dependency 'FirebaseFirestore/FirebaseFirestoreInternal'
   end
@@ -45,37 +42,18 @@ Pod::Spec.new do |s|
 
   # Base Pod gets everything except leveldb, which if included here may collide with inclusions elsewhere
   s.subspec 'Base' do |base|
-    frameworksBase = Dir.glob("FirebaseFirestore/*.xcframework").select do |name|
-      if name.include?('leveldb')
-        false
-      elsif name.include?('FirebaseFirestoreInternal')
-        false
-      # elsif name.include?('FirebaseSharedSwift')
-      #   false
-      elsif name.include?('FirebaseAppCheckInterop')
-        false
-      elsif name.include?('FirebaseCore')
-        false
-      elsif name.include?('FirebaseCoreExtension')
-        false
-      else
-        true
-      end
-    end
-
     # Dependencies that are from source following SPM strategy: https://github.com/firebase/firebase-ios-sdk/blob/main/Package.swift#L1500C1-L1504C31
-    base.dependency 'FirebaseAppCheckInterop', '~> 10.19.0'    
-    base.dependency 'FirebaseCore', '~> 10.19.0'    
-    base.dependency 'FirebaseCoreExtension', '~> 10.19.0'    
-    # base.dependency 'FirebaseSharedSwift', '~> 10.19.0'
+    base.dependency 'FirebaseCore', '~> 10.0'
+    base.dependency 'FirebaseCoreExtension', '~> 10.0'
+    base.dependency 'FirebaseFirestoreInternal', '~> 10.17'
+    base.dependency 'FirebaseSharedSwift', '~> 10.0'
     # Wrap around FirebaseFirestoreInternal following SPM strategy: https://github.com/firebase/firebase-ios-sdk/blob/main/Package.swift#L1513-L1519
     base.dependency 'FirebaseFirestore/FirebaseFirestoreInternalWrapper'
-    base.vendored_frameworks  = frameworksBase
-    base.preserve_paths       = frameworksBase
+
+    # base.vendored_frameworks  = frameworksBase
+    # base.preserve_paths       = frameworksBase
     base.resource             = 'FirebaseFirestore/Resources/*.bundle'
   end
-
-
 
   # AutoLeveldb Pod attempts to determine if it should include leveldb automatically. Flaky in some instances.
   s.subspec 'AutodetectLeveldb' do |autodb|
