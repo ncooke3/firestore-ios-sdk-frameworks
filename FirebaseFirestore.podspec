@@ -42,7 +42,7 @@ Pod::Spec.new do |s|
   hasRNFBFirestore = current_definition_string.include?('RNFBFirestore')
 
   s.dependency 'FirebaseSharedSwift', firebase_firestore_version
-  s.dependency 'FirebaseFirestoreInternal', firebase_firestore_version
+  # s.dependency 'FirebaseFirestoreInternal', firebase_firestore_version
   
   # Base Pod gets everything except leveldb, which if included here may collide with inclusions elsewhere
   s.subspec 'Base' do |base|
@@ -54,13 +54,13 @@ Pod::Spec.new do |s|
       elsif name.include?('FirebaseSharedSwift')
         false
       elsif name.include?('FirebaseFirestoreInternal')
-        false
+        true
       elsif hasRNFBFirestore && name.include?('FirebaseFirestoreSwift')
         false
       elsif ENV["SKIP_FIREBASE_FIRESTORE_SWIFT"] && name.include?('FirebaseFirestoreSwift')
         false
       else
-        true
+        false
       end
     end
     base.vendored_frameworks  = frameworksBase
