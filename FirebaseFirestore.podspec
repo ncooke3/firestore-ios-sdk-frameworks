@@ -35,6 +35,8 @@ Pod::Spec.new do |s|
   frameworksBase = Dir.glob("FirebaseFirestore/*.xcframework").select do |name|
     if name.include?('FirebaseFirestoreInternal')
       true
+    elsif name.include?('FirebaseFirestore')
+      true
     else
       false
     end
@@ -43,7 +45,6 @@ Pod::Spec.new do |s|
   s.preserve_paths       = frameworksBase
   s.resource             = 'FirebaseFirestore/Resources/*.bundle'
   s.dependency 'FirebaseCore', firebase_firestore_version
-  s.dependency 'FirebaseFirestore', firebase_firestore_version
   s.dependency 'FirebaseCoreExtension', firebase_firestore_version
   s.dependency 'FirebaseSharedSwift', firebase_firestore_version
 end
