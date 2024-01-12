@@ -33,7 +33,11 @@ Pod::Spec.new do |s|
   current_definition_string = current_target_definition.to_hash.to_s
   
   s.subspec 'FirebaseFirestoreInternalWrapper' do |ffiw|
-    ffiw.dependency 'FirebaseFirestoreInternal', :path => './FirebaseFirestoreInternal.podspec'
+    ffiw.dependency 'FirebaseFirestore/FirebaseFirestoreInternal'
+  end
+
+  s.subspec 'FirebaseFirestoreInternal' do |ffi|
+    ffi.vendored_frameworks = 'FirebaseFirestoreInternal.xcframework'
   end
   # Base Pod gets everything except leveldb, which if included here may collide with inclusions elsewhere
   s.subspec 'Base' do |base|
