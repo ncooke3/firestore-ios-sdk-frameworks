@@ -31,31 +31,19 @@ Pod::Spec.new do |s|
   # https://github.com/invertase/firestore-ios-sdk-frameworks/issues/62
   current_target_definition = Pod::Config.instance.podfile.send(:current_target_definition)
   current_definition_string = current_target_definition.to_hash.to_s
-
-  s.subspec 'FirebaseFirestoreInternal' do |ffi|
-    ffi.source = { 
-      :http => 'https://dl.google.com/firebase/ios/bin/firestore/10.19.0/FirebaseFirestoreInternal.zip',
-      :sha256 => '1096ff78a24822bb0218120dfd11859b3b661eb81fc525c9b2cfc044b59804c9'
-    }
-    ffi.vendored_frameworks = 'FirebaseFirestoreInternal.xcframework'
-  end
   
   s.subspec 'FirebaseFirestoreInternalWrapper' do |ffiw|
-    ffiw.dependency 'FirebaseFirestore/FirebaseFirestoreInternal'
+    ffiw.dependency 'FirebaseFirestoreInternal', :path => './FirebaseFirestoreInternal.podspec'
   end
   # Base Pod gets everything except leveldb, which if included here may collide with inclusions elsewhere
   s.subspec 'Base' do |base|
-    # Dependencies that are from source following SPM strategy: https://github.com/firebase/firebase-ios-sdk/blob/main/Package.swift#L1500C1-L1504C31
+    
     base.dependency 'FirebaseCore', '~> 10.0'
     base.dependency 'FirebaseCoreExtension', '~> 10.0'
     base.dependency 'FirebaseSharedSwift', '~> 10.0'
-    # Wrap around FirebaseFirestoreInternal following SPM strategy: https://github.com/firebase/firebase-ios-sdk/blob/main/Package.swift#L1513-L1519
+    # Now wrapping around `FirebaseFirestoreInternal` which downloads the pre-compiled binary
     base.dependency 'FirebaseFirestore/FirebaseFirestoreInternalWrapper'
 
-    # tried this, didn't work. Goet missing header: FirebaseFirestore/FirebaseFirestore.h
-    # base.vendored_frameworks = 'FirebaseFirestore/FirebaseFirestoreInternal.xcframework'
-    # base.vendored_frameworks  = frameworksBase
-    # base.preserve_paths       = frameworksBase
     base.resource             = 'FirebaseFirestore/Resources/*.bundle'
   end
 
