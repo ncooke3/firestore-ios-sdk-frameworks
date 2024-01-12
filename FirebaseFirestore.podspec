@@ -42,17 +42,17 @@ Pod::Spec.new do |s|
 
   # Base Pod gets everything except leveldb, which if included here may collide with inclusions elsewhere
   s.subspec 'Base' do |base|
-    # Dependencies that are from source following SPM strategy: https://github.com/firebase/firebase-ios-sdk/blob/main/Package.swift#L1500C1-L1504C31
+
     base.dependency 'FirebaseCore', '~> 10.0'
     base.dependency 'FirebaseCoreExtension', '~> 10.0'
     base.dependency 'FirebaseSharedSwift', '~> 10.0'
-    # Wrap around FirebaseFirestoreInternal following SPM strategy: https://github.com/firebase/firebase-ios-sdk/blob/main/Package.swift#L1513-L1519
+
     base.dependency 'FirebaseFirestore/FirebaseFirestoreInternalWrapper'
+    
+    base.public_header_files = 'FirebaseFirestoreInternal/**/*.h'
+
     base.source_files = 'Firestore/Swift/Source/**/*.{h,m,swift}'
-    # tried this, didn't work. Goet missing header: FirebaseFirestore/FirebaseFirestore.h
-    # base.vendored_frameworks = 'FirebaseFirestore/FirebaseFirestoreInternal.xcframework'
-    # base.vendored_frameworks  = frameworksBase
-    # base.preserve_paths       = frameworksBase
+
     base.resource             = 'FirebaseFirestore/Resources/*.bundle'
   end
 
