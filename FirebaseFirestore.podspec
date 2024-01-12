@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.cocoapods_version      = '>= 1.10.0'
   s.authors                = 'Invertase Limited'
   s.pod_target_xcconfig    = { 'OTHER_LDFLAGS' => '-lObjC' }
-  s.static_framework       = false
+  s.static_framework       = true
 
   # These frameworks, minimums, and the c++ library are here from, and copied specifically to match, the upstream podspec:
   # https://github.com/firebase/firebase-ios-sdk/blob/34c4bdbce23f5c6e739bda83b71ba592d6400cd5/FirebaseFirestore.podspec#L103
@@ -32,13 +32,13 @@ Pod::Spec.new do |s|
   current_target_definition = Pod::Config.instance.podfile.send(:current_target_definition)
   current_definition_string = current_target_definition.to_hash.to_s
 
-  # s.subspec 'FirebaseFirestoreInternalWrapper' do |ffiw|
-  #   ffiw.dependency 'FirebaseFirestore/FirebaseFirestoreInternal'
-  # end
+  s.subspec 'FirebaseFirestoreInternalWrapper' do |ffiw|
+    ffiw.dependency 'FirebaseFirestore/FirebaseFirestoreInternal'
+  end
 
-  # s.subspec 'FirebaseFirestoreInternal' do |ffi|
-  #   ffi.vendored_frameworks = 'FirebaseFirestore/FirebaseFirestoreInternal.xcframework'
-  # end
+  s.subspec 'FirebaseFirestoreInternal' do |ffi|
+    ffi.vendored_frameworks = 'FirebaseFirestore/FirebaseFirestoreInternal.xcframework'
+  end
 
   # Base Pod gets everything except leveldb, which if included here may collide with inclusions elsewhere
   s.subspec 'Base' do |base|
@@ -47,9 +47,7 @@ Pod::Spec.new do |s|
     base.dependency 'FirebaseCoreExtension', '~> 10.0'
     base.dependency 'FirebaseSharedSwift', '~> 10.0'
 
-    # base.dependency 'FirebaseFirestore/FirebaseFirestoreInternalWrapper'
-    puts "YYYYYYY"
-    base.public_header_files = 'FirebaseFirestoreInternal/**/*.h'
+    base.dependency 'FirebaseFirestore/FirebaseFirestoreInternalWrapper'
 
     base.source_files = 'Firestore/Swift/Source/**/*.{h,m,swift}'
 
