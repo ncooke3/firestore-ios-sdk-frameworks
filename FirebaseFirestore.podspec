@@ -26,6 +26,11 @@ Pod::Spec.new do |s|
 
   s.default_subspecs       = "AutodetectLeveldb"
 
+  s.dependency 'FirebaseCore', '~> 10.0'
+  s.dependency 'FirebaseCoreExtension', '~> 10.0'
+  s.dependency 'FirebaseSharedSwift', '~> 10.0'
+  s.dependency 'FirebaseFirestore/FirebaseFirestoreInternal'
+  s.resource             = 'FirebaseFirestore/Resources/*.bundle'
   # Skip leveldb framework if Firebase Database is included in any form
   # Skip FirebaseFirestoreSwift if project is FlutterFire or React Native Firebase project. See:
   # https://github.com/invertase/firestore-ios-sdk-frameworks/issues/62
@@ -43,13 +48,13 @@ Pod::Spec.new do |s|
   # Base Pod gets everything except leveldb, which if included here may collide with inclusions elsewhere
   s.subspec 'Base' do |base|
     
-    base.dependency 'FirebaseCore', '~> 10.0'
-    base.dependency 'FirebaseCoreExtension', '~> 10.0'
-    base.dependency 'FirebaseSharedSwift', '~> 10.0'
+    # base.dependency 'FirebaseCore', '~> 10.0'
+    # base.dependency 'FirebaseCoreExtension', '~> 10.0'
+    # base.dependency 'FirebaseSharedSwift', '~> 10.0'
     
-    base.dependency 'FirebaseFirestore/FirebaseFirestoreInternal'
+    # base.dependency 'FirebaseFirestore/FirebaseFirestoreInternal'
 
-    base.resource             = 'FirebaseFirestore/Resources/*.bundle'
+    # base.resource             = 'FirebaseFirestore/Resources/*.bundle'
   end
 
   # AutoLeveldb Pod attempts to determine if it should include leveldb automatically. Flaky in some instances.
