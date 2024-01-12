@@ -33,6 +33,7 @@ Pod::Spec.new do |s|
   current_definition_string = current_target_definition.to_hash.to_s
   
   s.subspec 'FirebaseFirestoreInternalWrapper' do |ffiw|
+    ffiw.public_header_files = 'FirebaseFirestoreInternal/**/*.h'
     ffiw.dependency 'FirebaseFirestore/FirebaseFirestoreInternal'
   end
 
