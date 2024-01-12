@@ -32,12 +32,12 @@ Pod::Spec.new do |s|
   current_target_definition = Pod::Config.instance.podfile.send(:current_target_definition)
   current_definition_string = current_target_definition.to_hash.to_s
   
-  s.subspec 'FirebaseFirestoreInternalWrapper' do |ffiw|
-    ffiw.public_header_files = 'FirebaseFirestoreInternal/**/*.h'
-    ffiw.dependency 'FirebaseFirestore/FirebaseFirestoreInternal'
-  end
-
+  # s.subspec 'FirebaseFirestoreInternalWrapper' do |ffiw|
+  #   ffiw.dependency 'FirebaseFirestore/FirebaseFirestoreInternal'
+  # end
+  
   s.subspec 'FirebaseFirestoreInternal' do |ffi|
+    ffi.public_header_files = 'FirebaseFirestoreInternal.xcframework/**/*.h'
     ffi.vendored_frameworks = 'FirebaseFirestoreInternal.xcframework'
   end
   # Base Pod gets everything except leveldb, which if included here may collide with inclusions elsewhere
@@ -46,8 +46,8 @@ Pod::Spec.new do |s|
     base.dependency 'FirebaseCore', '~> 10.0'
     base.dependency 'FirebaseCoreExtension', '~> 10.0'
     base.dependency 'FirebaseSharedSwift', '~> 10.0'
-    # Now wrapping around `FirebaseFirestoreInternal` which downloads the pre-compiled binary
-    base.dependency 'FirebaseFirestore/FirebaseFirestoreInternalWrapper'
+    
+    base.dependency 'FirebaseFirestore/FirebaseFirestoreInternal'
 
     base.resource             = 'FirebaseFirestore/Resources/*.bundle'
   end
