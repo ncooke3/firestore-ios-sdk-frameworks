@@ -48,7 +48,7 @@ Pod::Spec.new do |s|
     base.dependency 'FirebaseSharedSwift', '~> 10.0'
     # Wrap around FirebaseFirestoreInternal following SPM strategy: https://github.com/firebase/firebase-ios-sdk/blob/main/Package.swift#L1513-L1519
     base.dependency 'FirebaseFirestore/FirebaseFirestoreInternalWrapper'
-
+    base.source_files = 'Firestore/Swift/Source/**/*.{h,m,swift}'
     # tried this, didn't work. Goet missing header: FirebaseFirestore/FirebaseFirestore.h
     # base.vendored_frameworks = 'FirebaseFirestore/FirebaseFirestoreInternal.xcframework'
     # base.vendored_frameworks  = frameworksBase
