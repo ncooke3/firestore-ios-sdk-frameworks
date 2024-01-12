@@ -32,14 +32,17 @@ Pod::Spec.new do |s|
   current_target_definition = Pod::Config.instance.podfile.send(:current_target_definition)
   current_definition_string = current_target_definition.to_hash.to_s
 
+  s.subspec 'FirebaseFirestoreInternal' do |ffi|
+    ffi.source = { 
+      :http => 'https://dl.google.com/firebase/ios/bin/firestore/10.19.0/FirebaseFirestoreInternal.zip',
+      :sha256 => '1096ff78a24822bb0218120dfd11859b3b661eb81fc525c9b2cfc044b59804c9'
+    }
+    ffi.vendored_frameworks = 'FirebaseFirestoreInternal.xcframework'
+  end
+  
   s.subspec 'FirebaseFirestoreInternalWrapper' do |ffiw|
     ffiw.dependency 'FirebaseFirestore/FirebaseFirestoreInternal'
   end
-
-  s.subspec 'FirebaseFirestoreInternal' do |ffi|
-    ffi.vendored_frameworks = 'FirebaseFirestore/FirebaseFirestoreInternal.xcframework'
-  end
-
   # Base Pod gets everything except leveldb, which if included here may collide with inclusions elsewhere
   s.subspec 'Base' do |base|
     # Dependencies that are from source following SPM strategy: https://github.com/firebase/firebase-ios-sdk/blob/main/Package.swift#L1500C1-L1504C31
