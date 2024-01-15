@@ -23,7 +23,7 @@ Pod::Spec.new do |s|
   s.ios.deployment_target  = '11.0'
   s.osx.deployment_target  = '10.13'
   s.tvos.deployment_target = '11.0'
-
+s
   s.subspec 'FirebaseFirestoreInternalWrapper' do |ffiw|
     ffiw.preserve_paths = "FirebaseFirestore/FirebaseFirestoreInternal.xcframework"
     ffi.vendored_frameworks = 'FirebaseFirestore/FirebaseFirestoreInternal.xcframework'
