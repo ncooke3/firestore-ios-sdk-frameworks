@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '11.0'
 
   s.subspec 'FirebaseFirestoreInternalWrapper' do |ffiw|
-    ffiw.dependency 'FirebaseFirestoreInternal/FirebaseFirestoreInternal'
+    ffiw.dependency 'FirebaseFirestoreInternal-Invertase/FirebaseFirestoreInternal'
   end
 
   s.subspec 'FirebaseFirestoreInternal' do |ffi|
