@@ -27,6 +27,7 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '11.0'
 
   s.default_subspecs       = "AutodetectLeveldb"
+  s.swift_version = '5.3'
 
   # Skip leveldb framework if Firebase Database is included in any form
   # Skip FirebaseFirestoreSwift if project is FlutterFire or React Native Firebase project. See:
@@ -42,8 +43,7 @@ Pod::Spec.new do |s|
     base.dependency 'FirebaseSharedSwift', '~> 10.0'
 
     base.dependency 'FirebaseFirestoreInternal-Invertase/FirebaseFirestoreInternalWrapper', '10.19.0'
-
-    base.source_files = 'Firestore/Swift/Source/**/*.{h,m,swift}'
+    base.source_files = 'Firestore/Swift/Source/**/*.swift'
 
     base.resource             = 'FirebaseFirestore/Resources/*.bundle'
   end
