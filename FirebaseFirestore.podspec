@@ -27,7 +27,7 @@ Pod::Spec.new do |s|
   s.osx.deployment_target  = '10.13'
   s.tvos.deployment_target = '11.0'
 
-  s.default_subspecs       = "AutodetectLeveldb"
+  # s.default_subspecs       = "AutodetectLeveldb"
   s.swift_version = '5.3'
 
   # Skip leveldb framework if Firebase Database is included in any form
@@ -50,51 +50,51 @@ Pod::Spec.new do |s|
   end
 
   # AutoLeveldb Pod attempts to determine if it should include leveldb automatically. Flaky in some instances.
-  s.subspec 'AutodetectLeveldb' do |autodb|
-    autodb.dependency 'FirebaseFirestore/Base'
+  # s.subspec 'AutodetectLeveldb' do |autodb|
+  #   autodb.dependency 'FirebaseFirestore/Base'
 
 
-    skip_leveldb = false
+  #   skip_leveldb = false
 
-    if defined?($FirebaseFirestoreExcludeLeveldb)
-      Pod::UI.puts "#{autodb.name}: FirebaseFirestoreExcludeLeveldb set to #{$FirebaseFirestoreExcludeLeveldb} in Podfile."
-      Pod::UI.puts "#{autodb.name}: This variable is deprecated. Use the FirebaseFirestore/WithoutLeveldb subspec if needed."
-      skip_leveldb = $FirebaseFirestoreExcludeLeveldb
-    end
+  #   if defined?($FirebaseFirestoreExcludeLeveldb)
+  #     Pod::UI.puts "#{autodb.name}: FirebaseFirestoreExcludeLeveldb set to #{$FirebaseFirestoreExcludeLeveldb} in Podfile."
+  #     Pod::UI.puts "#{autodb.name}: This variable is deprecated. Use the FirebaseFirestore/WithoutLeveldb subspec if needed."
+  #     skip_leveldb = $FirebaseFirestoreExcludeLeveldb
+  #   end
 
-    # FlutterFire
-    if !skip_leveldb && current_definition_string.include?('firebase_database')
-      Pod::UI.puts "#{autodb.name}: Detected firebase_database module. Would not include leveldb."
-      skip_leveldb = true
-    # React native Firebase
-    elsif !skip_leveldb && current_definition_string.include?('RNFBDatabase')
-      Pod::UI.puts "#{autodb.name}: Detected RNFBDatabase module. Would not include leveldb."
-      skip_leveldb = true
-    # Pod spec used directly
-    elsif !skip_leveldb && current_definition_string.include?('FirebaseDatabase')
-      Pod::UI.puts "#{autodb.name}: Detected FirebaseDatabase module. Would not include leveldb."
-      skip_leveldb = true
-    # Umbrella pod spec
-    elsif !skip_leveldb && current_definition_string.include?('Firebase/Database')
-      Pod::UI.puts "#{autodb.name}: Detected Firebase/Database module. Would not include leveldb."
-      skip_leveldb = true
-    end
+  #   # FlutterFire
+  #   if !skip_leveldb && current_definition_string.include?('firebase_database')
+  #     Pod::UI.puts "#{autodb.name}: Detected firebase_database module. Would not include leveldb."
+  #     skip_leveldb = true
+  #   # React native Firebase
+  #   elsif !skip_leveldb && current_definition_string.include?('RNFBDatabase')
+  #     Pod::UI.puts "#{autodb.name}: Detected RNFBDatabase module. Would not include leveldb."
+  #     skip_leveldb = true
+  #   # Pod spec used directly
+  #   elsif !skip_leveldb && current_definition_string.include?('FirebaseDatabase')
+  #     Pod::UI.puts "#{autodb.name}: Detected FirebaseDatabase module. Would not include leveldb."
+  #     skip_leveldb = true
+  #   # Umbrella pod spec
+  #   elsif !skip_leveldb && current_definition_string.include?('Firebase/Database')
+  #     Pod::UI.puts "#{autodb.name}: Detected Firebase/Database module. Would not include leveldb."
+  #     skip_leveldb = true
+  #   end
 
-    if !skip_leveldb
-      Pod::UI.puts "#{autodb.name}: subspec would include leveldb if used directly or by default."
-      autodb.dependency 'FirebaseFirestore/WithLeveldb'
-    end
-  end
+  #   if !skip_leveldb
+  #     Pod::UI.puts "#{autodb.name}: subspec would include leveldb if used directly or by default."
+  #     autodb.dependency 'FirebaseFirestore/WithLeveldb'
+  #   end
+  # end
 
-  # NoLeveldb Pod deterministically gets all of FirebaseFirestore *except* leveldb, to ensure no symbol collisions
-  s.subspec 'WithoutLeveldb' do |nodb|
-    nodb.dependency 'FirebaseFirestore/Base'
-  end
+  # # NoLeveldb Pod deterministically gets all of FirebaseFirestore *except* leveldb, to ensure no symbol collisions
+  # s.subspec 'WithoutLeveldb' do |nodb|
+  #   nodb.dependency 'FirebaseFirestore/Base'
+  # end
 
-  # WithLeveldb Pod deterministically gets all of FirebaseFirestore *and* leveldb
-  s.subspec 'WithLeveldb' do |withdb|
-    withdb.dependency            'FirebaseFirestore/Base'
-    withdb.vendored_frameworks = "FirebaseFirestore/*leveldb*"
-    withdb.preserve_paths      = "FirebaseFirestore/*leveldb*"
-  end
+  # # WithLeveldb Pod deterministically gets all of FirebaseFirestore *and* leveldb
+  # s.subspec 'WithLeveldb' do |withdb|
+  #   withdb.dependency            'FirebaseFirestore/Base'
+  #   withdb.vendored_frameworks = "FirebaseFirestore/*leveldb*"
+  #   withdb.preserve_paths      = "FirebaseFirestore/*leveldb*"
+  # end
 end
