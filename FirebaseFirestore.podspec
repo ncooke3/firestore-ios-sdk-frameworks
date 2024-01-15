@@ -42,7 +42,7 @@ Pod::Spec.new do |s|
     base.dependency 'FirebaseCoreExtension', '~> 10.0'
     base.dependency 'FirebaseSharedSwift', '~> 10.0'
 
-    base.dependency 'FirebaseFirestoreInternal-Invertase/FirebaseFirestoreInternalWrapper'
+    base.dependency 'FirebaseFirestoreInternal-Invertase/FirebaseFirestoreInternalWrapper', '10.19.0'
 
     base.source_files = 'Firestore/Swift/Source/**/*.{h,m,swift}'
 
