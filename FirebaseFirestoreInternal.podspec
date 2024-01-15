@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'FirebaseFirestoreInternal' do |ffi|
-    ffi.vendored_frameworks = 'FirebaseFirestore/FirebaseFirestoreInternal.xcframework'
+    ffi.vendored_frameworks = './FirebaseFirestore/FirebaseFirestoreInternal.xcframework'
   end
 
 end
