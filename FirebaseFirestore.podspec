@@ -7,7 +7,10 @@ Pod::Spec.new do |s|
   s.description            = 'A replica Firebase Firestore podspec that provides pre-compiled binaries/frameworks instead'
   s.homepage               = 'http://invertase.io'
   s.license                = 'Apache-2.0'
-  s.source                 = { :git => 'https://github.com/firebase/firebase-ios-sdk.git' }
+  s.source                 = { 
+    :git => 'https://github.com/firebase/firebase-ios-sdk.git',
+    :tag => 'CocoaPods-' + s.version.to_s
+  }
   s.cocoapods_version      = '>= 1.10.0'
   s.authors                = 'Invertase Limited'
   s.pod_target_xcconfig    = { 'OTHER_LDFLAGS' => '-lObjC' }
