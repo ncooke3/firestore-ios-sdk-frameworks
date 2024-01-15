@@ -26,7 +26,7 @@ Pod::Spec.new do |s|
 s
   s.subspec 'FirebaseFirestoreInternalWrapper' do |ffiw|
     ffiw.preserve_paths = "FirebaseFirestore/FirebaseFirestoreInternal.xcframework"
-    ffi.vendored_frameworks = 'FirebaseFirestore/FirebaseFirestoreInternal.xcframework'
+    ffiw.vendored_frameworks = 'FirebaseFirestore/FirebaseFirestoreInternal.xcframework'
   end
 
 end
