@@ -35,14 +35,6 @@ Pod::Spec.new do |s|
   current_target_definition = Pod::Config.instance.podfile.send(:current_target_definition)
   current_definition_string = current_target_definition.to_hash.to_s
 
-  s.subspec 'FirebaseFirestoreInternalWrapper' do |ffiw|
-    ffiw.dependency 'FirebaseFirestore/FirebaseFirestoreInternal'
-  end
-
-  s.subspec 'FirebaseFirestoreInternal' do |ffi|
-    ffi.vendored_frameworks = 'FirebaseFirestore/FirebaseFirestoreInternal.xcframework'
-  end
-
   # Base Pod gets everything except leveldb, which if included here may collide with inclusions elsewhere
   s.subspec 'Base' do |base|
 
@@ -50,7 +42,7 @@ Pod::Spec.new do |s|
     base.dependency 'FirebaseCoreExtension', '~> 10.0'
     base.dependency 'FirebaseSharedSwift', '~> 10.0'
 
-    base.dependency 'FirebaseFirestore/FirebaseFirestoreInternalWrapper'
+    base.dependency 'FirebaseFirestoreInternal-Invertase/FirebaseFirestoreInternalWrapper'
 
     base.source_files = 'Firestore/Swift/Source/**/*.{h,m,swift}'
 
