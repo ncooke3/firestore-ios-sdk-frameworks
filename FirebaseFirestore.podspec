@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.homepage               = 'http://invertase.io'
   s.license                = 'Apache-2.0'
   s.source                 = { 
-    :git => 'https://github.com/firebase/firebase-ios-sdk.git'
+    :git => 'https://github.com/firebase/firebase-ios-sdk.git',
     :tag => '10.19.0'
   }
   s.cocoapods_version      = '>= 1.10.0'
