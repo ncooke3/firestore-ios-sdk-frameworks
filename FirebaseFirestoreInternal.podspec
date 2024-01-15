@@ -25,8 +25,7 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '11.0'
 
   s.subspec 'FirebaseFirestoreInternalWrapper' do |ffiw|
-    ffi.vendored_frameworks = 'FirebaseFirestore/FirebaseFirestoreInternal.xcframework'
-    # ffiw.dependency 'FirebaseFirestoreInternal-Invertase/FirebaseFirestoreInternal'
+    ffiw.dependency 'FirebaseFirestoreInternal-Invertase/FirebaseFirestoreInternal'
   end
 
   s.subspec 'FirebaseFirestoreInternal' do |ffi|
